@@ -1,0 +1,9 @@
+
+dependencies {
+[... Existing dependencies element ...]
+
+/****** Note: Add this line only if constraint layout dependency is not defined *****/
+
+implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+}

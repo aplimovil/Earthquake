@@ -1,21 +1,18 @@
 /**
- *
  * Applications development for mobile devices
  * -------------------------------------------
- *
+ * <p>
  * EarthquakeRecyclerViewAdapter implements an adapter to hold a
  * reference to each View from the Earthquake item layout definition
  * throughout a View Holder.
  *
  * @author Francisco Martinez
- *
+ * <p>
  * This example is based on the source code from the book
  * of Reto Meier and Ian Lake - Professional Android
  * licensed under the Apache License, Version 2.0 (the "License"):
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- *
  */
 
 
@@ -27,10 +24,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+
+import aplimovil.com.earthquake.databinding.ListItemEarthquakeBinding;
 
 public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<EarthquakeRecyclerViewAdapter.ViewHolder> {
+
     private final List<Earthquake> mEarthquakes;
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.US);
+    private static final NumberFormat MAGNITUDE_FORMAT = new DecimalFormat("0.0");
 
     public EarthquakeRecyclerViewAdapter(List<Earthquake> earthquakes) {
         mEarthquakes = earthquakes;
@@ -38,15 +44,15 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_earthquake,
-                parent, false);
-        return new ViewHolder(view);
+        ListItemEarthquakeBinding binding = ListItemEarthquakeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.earthquake = mEarthquakes.get(position);
-        holder.detailsView.setText(mEarthquakes.get(position).toString());
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Earthquake earthquake = mEarthquakes.get(position);
+        holder.binding.setEarthquake(earthquake);
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -54,21 +60,14 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         return mEarthquakes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View parentView;
-        public final TextView detailsView;
-        public Earthquake earthquake;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final ListItemEarthquakeBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            parentView = view;
-            detailsView = (TextView)
-                    view.findViewById(R.id.list_item_earthquake_details);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + detailsView.getText() + "'";
+        public ViewHolder(ListItemEarthquakeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            binding.setTimeformat(TIME_FORMAT);
+            binding.setMagnitudeformat(MAGNITUDE_FORMAT);
         }
     }
 }

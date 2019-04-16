@@ -1,0 +1,17 @@
+android {
+[... Existing android element ...]
+
+dataBinding.enabled = true
+
+}
+
+dependencies {
+[... Existing dependencies element ...]
+
+implementation 'com.android.support:support-v4:28.0.0'
+
+/****** Note: Add this line only if constraint layout dependency is not defined *****/
+
+implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+}
