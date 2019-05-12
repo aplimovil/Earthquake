@@ -1,0 +1,27 @@
+
+
+public class EarthquakeDetailActivity extends AppCompatActivity {
+
+    //Variables to store the information from the intent
+    String earthquakeLocation;
+    String earthquakeTime;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_earthquake_detail);
+
+/************************************ Add this code ****************************************/
+        //Capture the intent from previous activity
+        Intent i = getIntent();
+        //Get the intent information
+        Bundle b = i.getExtras();
+        earthquakeLocation = b.getString("DETAILS");
+        earthquakeTime = b.getString("TIME");
+
+        TextView earthquakeDetails = (TextView) findViewById(R.id.earthquakedetails);
+        earthquakeDetails.setText("An earthquake took place in: " + earthquakeLocation + " at " + earthquakeTime + ". We were delivering more information soon.");
+/************************************ Add this code ****************************************/
+
+    }
+}

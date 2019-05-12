@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <AnalogClock
+        android:id="@+id/analog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/timelabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/analog"
+        android:layout_centerHorizontal="true"
+        android:text="Hora actual"></TextView>
+
+    <DigitalClock
+        android:id="@+id/digital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timelabel"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/earthquakedetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/digital"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/text_margin">
+    </TextView>
+
+    <Button
+        android:id="@+id/mapbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver mapa"
+        android:layout_below="@+id/earthquakedetails"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

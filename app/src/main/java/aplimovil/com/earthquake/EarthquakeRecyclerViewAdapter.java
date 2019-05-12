@@ -37,6 +37,8 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
     private final List<Earthquake> mEarthquakes;
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.US);
     private static final NumberFormat MAGNITUDE_FORMAT = new DecimalFormat("0.0");
+    //Defines a variable for listening user interactions with the items list
+    private static View.OnClickListener mOnItemClickListener;
 
     public EarthquakeRecyclerViewAdapter(List<Earthquake> earthquakes) {
         mEarthquakes = earthquakes;
@@ -60,6 +62,11 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         return mEarthquakes.size();
     }
 
+    //Step 2 of 4: Assign itemClickListener to your local View.OnClickListener variable
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ListItemEarthquakeBinding binding;
 
@@ -68,6 +75,13 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
             this.binding = binding;
             binding.setTimeformat(TIME_FORMAT);
             binding.setMagnitudeformat(MAGNITUDE_FORMAT);
+
+            //Step 3 of 4: setTag() as current view holder along with
+            // setOnClickListener() as your local View.OnClickListener variable.
+            // You can set the same mOnItemClickListener on multiple views if required
+            // and later differentiate those clicks using view's id.
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 }
